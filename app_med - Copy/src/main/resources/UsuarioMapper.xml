@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.appmed.repository.UsuarioRepository">
+
+    <!-- Selecionar usuário por ID -->
+    <select id="findById" parameterType="int" resultType="com.example.appmed.model.Usuario">
+        SELECT * FROM usuarios WHERE id_usuario = #{idUsuario}
+    </select>
+
+    <!-- Inserir novo usuário e retornar a chave gerada -->
+    <insert id="insertUsuario" parameterType="com.example.appmed.model.Usuario" useGeneratedKeys="true" keyProperty="idUsuario">
+        INSERT INTO usuarios (nome_completo, email, senha_hash, data_nascimento, genero, numero_telefone)
+        VALUES (#{nomeCompleto}, #{email}, #{senhaHash}, #{dataNascimento}, #{genero}, #{numeroTelefone})
+    </insert>
+
+    <!-- Atualizar um usuário -->
+    <update id="updateUsuario" parameterType="com.example.appmed.model.Usuario">
+        UPDATE usuarios
+        SET nome_completo = #{nomeCompleto}, 
+            email = #{email}, 
+            senha_hash = #{senhaHash}, 
+            data_nascimento = #{dataNascimento}, 
+            genero = #{genero}, 
+            numero_telefone = #{numeroTelefone}
+        WHERE id_usuario = #{idUsuario}
+    </update>
+
+    <!-- Deletar usuário por ID -->
+    <delete id="deleteUsuario" parameterType="int">
+        DELETE FROM usuarios WHERE id_usuario = #{idUsuario}
+    </delete>
+
+</mapper>
+
